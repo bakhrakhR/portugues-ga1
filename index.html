@@ -284,11 +284,9 @@ td.hm.na{background:transparent}
 .hm.good,.hmk.good{background:var(--good)} .hm.mid,.hmk.mid{background:color-mix(in srgb,var(--good) 45%,var(--line))}
 .hm.low,.hmk.low{background:color-mix(in srgb,#e3a417 60%,var(--line))} .hm.bad,.hmk.bad{background:var(--bad)}
 .hmk{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-left:4px}
-.hidemode [data-h] td:not(:first-child):not(.ru), .hidemode #all-table td{color:transparent!important;background:repeating-linear-gradient(45deg,var(--line) 0 6px,var(--bg) 6px 12px);border-radius:6px;cursor:pointer;user-select:none}
-.hidemode [data-h] td:not(:first-child):not(.ru) *, .hidemode #all-table td *{color:transparent!important}
-.hidemode [data-h] td.shown, .hidemode [data-h] td.shown *{color:inherit!important;background:none}
-.hidemode [data-h] td.shown .end{color:var(--tc,var(--accent))!important}
-.hidemode [data-h] td.shown .irr{color:var(--bad)!important}
+.hidemode [data-h] td:not(.shown):not(:first-child):not(.ru), .hidemode #all-table td:not(.shown){color:transparent!important;background:repeating-linear-gradient(45deg,var(--line) 0 6px,var(--bg) 6px 12px);border-radius:6px;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+.hidemode [data-h] td:not(.shown):not(:first-child):not(.ru) *, .hidemode #all-table td:not(.shown) *{color:transparent!important}
+.hidemode [data-h] td.shown{cursor:pointer}
 footer{color:var(--muted);font-size:.82rem;padding:10px 0 40px}
 @media (prefers-reduced-motion: no-preference){ .qi{transition:border-color .2s} }
 </style>
