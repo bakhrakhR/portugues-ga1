@@ -248,6 +248,47 @@ details.li summary::-webkit-details-marker{display:none}
 details.li summary .pt{font-weight:600}
 details.li[open] summary .pt{color:var(--accent)}
 details.li .fc-back{margin-bottom:10px}
+
+/* verb trainer */
+.wrapc{flex-wrap:wrap;overflow:visible}
+.tv-ctl{display:grid;gap:8px;border:1px solid var(--line);border-radius:12px;padding:8px 12px;background:var(--bg)}
+.tv-ctl[open]{padding-bottom:12px}
+.tv-ctl summary{cursor:pointer;font-weight:600;color:var(--accent);list-style-position:inside}
+.tv-ctl[open] > *:not(summary){margin-top:6px}
+.tv-size{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tchip[aria-pressed="true"]{background:var(--tc);border-color:var(--tc);color:var(--surface)}
+.tv-card{all:unset;box-sizing:border-box;display:grid;gap:10px;place-items:center;text-align:center;min-height:190px;padding:18px;border-radius:16px;cursor:pointer;width:100%;
+  background:linear-gradient(160deg,var(--accent-soft),var(--surface));border:1.5px solid color-mix(in srgb,var(--accent) 30%,var(--line))}
+.tv-card:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.tv-card.empty,.tv-card.done{cursor:default}
+.tv-card .big{font-family:var(--display);font-size:1.6rem}
+.tv-chip{font-size:.8rem;font-weight:700;color:var(--surface);background:var(--tc);padding:3px 12px;border-radius:999px}
+.tv-lab{font-size:clamp(1.3rem,5.5vw,1.8rem);font-family:var(--display)}
+.tv-sent{font-size:clamp(1.1rem,4.6vw,1.4rem);font-weight:500;line-height:1.4}
+.gap{color:var(--accent);font-weight:700}
+.tv-sub{font-size:.85rem;color:var(--muted)}
+.tv-ans{font-family:var(--display);font-size:clamp(1.6rem,7vw,2.3rem);font-weight:700;color:var(--accent)}
+.tv-row{margin-top:10px;font-size:.95rem}
+.tv-row tr.hit td{color:var(--tc);font-weight:700}
+.tv-row tr.hit{background:color-mix(in srgb,var(--tc) 10%,transparent)}
+.gbtns.two{grid-template-columns:1fr 1fr}
+.tv-mapw summary{cursor:pointer;font-weight:600;color:var(--accent);padding:4px 0}
+.tv-mapw{display:grid;gap:8px}
+.tv-mapw[open]{gap:8px}
+.hmap{font-size:.78rem;width:auto}
+.hmap th,.hmap td{padding:3px 4px;text-align:center}
+.hmap tbody th{text-align:right;font-weight:500;color:var(--ink)}
+.hmap thead th{writing-mode:vertical-rl;transform:rotate(180deg);height:78px;font-size:.72rem;text-transform:none;letter-spacing:0;background:transparent}
+td.hm{width:22px;height:20px;border:2px solid var(--surface);background:var(--line);border-radius:5px;color:var(--muted)}
+td.hm.na{background:transparent}
+.hm.good,.hmk.good{background:var(--good)} .hm.mid,.hmk.mid{background:color-mix(in srgb,var(--good) 45%,var(--line))}
+.hm.low,.hmk.low{background:color-mix(in srgb,#e3a417 60%,var(--line))} .hm.bad,.hmk.bad{background:var(--bad)}
+.hmk{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-left:4px}
+.hidemode [data-h] td:not(:first-child):not(.ru), .hidemode #all-table td{color:transparent!important;background:repeating-linear-gradient(45deg,var(--line) 0 6px,var(--bg) 6px 12px);border-radius:6px;cursor:pointer;user-select:none}
+.hidemode [data-h] td:not(:first-child):not(.ru) *, .hidemode #all-table td *{color:transparent!important}
+.hidemode [data-h] td.shown, .hidemode [data-h] td.shown *{color:inherit!important;background:none}
+.hidemode [data-h] td.shown .end{color:var(--tc,var(--accent))!important}
+.hidemode [data-h] td.shown .irr{color:var(--bad)!important}
 footer{color:var(--muted);font-size:.82rem;padding:10px 0 40px}
 @media (prefers-reduced-motion: no-preference){ .qi{transition:border-color .2s} }
 </style>
@@ -464,16 +505,48 @@ footer{color:var(--muted);font-size:.82rem;padding:10px 0 40px}
 <section class="view" id="view-verbos" aria-labelledby="h-verbos">
   <div class="card">
     <h2 id="h-verbos">Таблицы глаголов</h2>
-    <p class="lead">Окончания выделены цветом времени, <span class="irr">красным</span> отмечены неправильные формы. В Португалии <b>você</b> и <b>vocês</b> спрягаются как <b>ele</b> и <b>eles</b>, а <i>vós</i> в живой речи не используется, поэтому в каждой таблице пять строк.</p>
+    <p class="lead">Вверху тренажёр, ниже справочник. Окончания выделены цветом времени, <span class="irr">красным</span> отмечены неправильные формы. В Португалии <b>você</b> и <b>vocês</b> спрягаются как <b>ele</b> и <b>eles</b>, а <i>vós</i> в живой речи не используется, поэтому в каждой таблице пять строк.</p>
     <div class="toc">
-      <a href="#v-ser">ser · estar · ter</a><a href="#v-pres">Presente</a><a href="#v-refl">Возвратные</a><a href="#v-pps">P.p.s.</a><a href="#v-imp">Imperfeito</a><a href="#v-fut">Futuro и condicional</a><a href="#v-part">Причастия</a><a href="#v-imper">Imperativo</a><a href="#v-nf">Inf. pessoal и gerúndio</a><a href="#v-haver">haver</a><a href="#v-mod">Модальные</a><a href="#v-all">Один глагол во всех временах</a>
+      <a href="#v-train">Тренажёр</a><a href="#v-ser">ser · estar · ter</a><a href="#v-pres">Presente</a><a href="#v-refl">Возвратные</a><a href="#v-pps">P.p.s.</a><a href="#v-imp">Imperfeito</a><a href="#v-fut">Futuro и condicional</a><a href="#v-part">Причастия</a><a href="#v-imper">Imperativo</a><a href="#v-nf">Inf. pessoal и gerúndio</a><a href="#v-haver">haver</a><a href="#v-mod">Модальные</a><a href="#v-all">Один глагол во всех временах</a>
     </div>
   </div>
 
+
+  <div class="card tv" id="v-train">
+    <h2>Тренажёр спряжений</h2>
+    <p class="muted small">Сначала вспомни форму (лучше вслух), потом нажми и проверь себя. Ошибки вернутся в этой же тренировке, а выученное — через 1, 3, 7, 14 и 30 дней. Прогресс хранится в этом браузере.</p>
+    <details class="tv-ctl" id="tv-ctl">
+      <summary><span class="tv-set-l">Настройки</span> <span class="small muted" id="tv-sum"></span></summary>
+      <span class="small muted">Набор глаголов</span>
+      <div class="chips wrapc" id="tv-sets" role="group" aria-label="Набор глаголов"></div>
+      <p class="tip small" id="tv-hint"></p>
+      <span class="small muted">Времена</span>
+      <div class="chips wrapc" id="tv-tenses" role="group" aria-label="Времена"></div>
+      <div class="tv-size"><span class="small muted">Заданий за раз:</span><div class="seg small" id="tv-size"><button type="button" class="segb" data-n="10">10</button><button type="button" class="segb" data-n="15">15</button><button type="button" class="segb" data-n="20">20</button></div></div>
+    </details>
+    <div class="gprog"><div class="bar"><i id="tv-bar"></i></div><span id="tv-stat" class="small muted"></span></div>
+    <div id="tv-stage"></div>
+    <div class="gbtns two" id="tv-btns" hidden>
+      <button type="button" class="gb again" id="tv-bad">✗ Ещё раз</button>
+      <button type="button" class="gb know" id="tv-know">✓ Знаю</button>
+    </div>
+    <details class="tv-mapw">
+      <summary>Карта слабых мест</summary>
+      <p class="small muted">Каждая клетка — глагол в одном времени. <span class="hmk good"></span> уверенно · <span class="hmk mid"></span> учится · <span class="hmk low"></span> только начато · <span class="hmk bad"></span> была ошибка · пусто — ещё не тренировали.</p>
+      <div class="tbl" id="tv-map"></div>
+      <button type="button" class="chip" id="tv-reset">Сбросить прогресс тренажёра</button>
+      <div id="tv-reset-confirm" class="trap" hidden>Сбросить весь прогресс тренажёра? <button type="button" class="chip" id="tv-reset-yes">Да, сбросить</button> <button type="button" class="chip" id="tv-reset-no">Отмена</button></div>
+    </details>
+  </div>
+
+  <div class="card">
+    <h2>Справочник</h2>
+    <label class="tog"><input type="checkbox" id="hide-forms"> Скрыть формы в таблицах и открывать их по нажатию (самопроверка)</label>
+  </div>
   <div class="card" id="v-all">
     <h2>Один глагол во всех временах</h2>
     <p class="muted small">Форма для «eu». Это самая удобная таблица, чтобы сравнивать времена между собой.</p>
-    <div class="tbl" id="all-table"></div>
+    <div class="tbl" id="all-table" data-h="1"></div>
   </div>
 
   <div class="card" id="v-ser">
@@ -507,17 +580,17 @@ footer{color:var(--muted);font-size:.82rem;padding:10px 0 40px}
   <div class="card" id="v-pres" style="--tc:var(--c-pres)">
     <h2>Presente do indicativo (юниты 1–11)</h2>
     <h3>Правильные глаголы</h3>
-    <div class="vgrid" id="pres-reg"></div>
+    <div class="vgrid" id="pres-reg" data-h="1"></div>
     <h3>Неправильные глаголы</h3>
-    <div class="vgrid" id="pres-irr"></div>
+    <div class="vgrid" id="pres-irr" data-h="1"></div>
     <h3>Меняется только форма «eu»</h3>
-    <div class="tbl"><table id="pres-eu"></table></div>
+    <div class="tbl"><table id="pres-eu" data-h="1"></table></div>
     <p class="tip">Глаголы на <b>-uzir</b> (conduzir, traduzir, introduzir) в форме «ele» теряют -e: <i>ele condu<b>z</b>, tradu<b>z</b></i>.</p>
   </div>
 
   <div class="card" id="v-refl" style="--tc:var(--c-pres)">
     <h2>Возвратные глаголы (юнит 15)</h2>
-    <div class="vgrid" id="refl"></div>
+    <div class="vgrid" id="refl" data-h="1"></div>
     <p><b>Где ставить местоимение.</b> Обычно оно идёт <b>после</b> глагола через дефис: <i>Levanto-me cedo.</i> <b>Перед</b> глаголом оно становится после таких слов:</p>
     <div class="markers"><span>não</span><span>nunca</span><span>já</span><span>ainda</span><span>também</span><span>só</span><span>todos</span><span>ninguém</span><span>alguém</span><span>como? onde? quando? porque?</span><span>que</span><span>quando</span><span>enquanto</span></div>
     <div class="ex">
@@ -530,25 +603,25 @@ footer{color:var(--muted);font-size:.82rem;padding:10px 0 40px}
   <div class="card" id="v-pps" style="--tc:var(--c-pps)">
     <h2>Pretérito perfeito simples (юниты 12–14)</h2>
     <h3>Правильные глаголы</h3>
-    <div class="vgrid" id="pps-reg"></div>
+    <div class="vgrid" id="pps-reg" data-h="1"></div>
     <h3>Неправильные глаголы</h3>
-    <div class="vgrid" id="pps-irr"></div>
+    <div class="vgrid" id="pps-irr" data-h="1"></div>
     <p class="tip"><b>Орфография в форме «eu»:</b> pagar → pa<b>gu</b>ei, ficar → fi<b>qu</b>ei, começar → come<b>c</b>ei, chegar → che<b>gu</b>ei, almoçar → almo<b>c</b>ei. Так буква сохраняет звук.</p>
     <p class="trap"><strong>Совпадения.</strong> <i>fui</i> означает и «я был» (ser), и «я ходил» (ir), смысл понятен из контекста. <i>vimos</i> означает и «мы видели» (ver, p.p.s.), и «мы приходим» (vir, presente).</p>
   </div>
 
   <div class="card" id="v-imp" style="--tc:var(--c-imp)">
     <h2>Pretérito imperfeito (юниты 16–20)</h2>
-    <div class="vgrid" id="imp-reg"></div>
+    <div class="vgrid" id="imp-reg" data-h="1"></div>
     <h3>Всего 4 неправильных глагола</h3>
-    <div class="vgrid" id="imp-irr"></div>
+    <div class="vgrid" id="imp-irr" data-h="1"></div>
     <p class="tip"><b>ir</b> в imperfeito правильный: <i>ia, ias, ia, íamos, iam</i>. Его часто используют как «собирался»: <i>Eu <b>ia</b> telefonar-te!</i> — Я как раз собиралась тебе позвонить!</p>
   </div>
 
   <div class="card" id="v-fut" style="--tc:var(--c-fut)">
     <h2>Futuro imperfeito и condicional (юниты 24–25)</h2>
     <p>Оба времени строятся одинаково: к <b>целому инфинитиву</b> добавляются окончания. Неправильных глаголов только три: <b>dizer → dir-</b>, <b>fazer → far-</b>, <b>trazer → trar-</b>.</p>
-    <div class="vgrid" id="fut"></div>
+    <div class="vgrid" id="fut" data-h="1"></div>
   </div>
 
   <div class="card" id="v-part" style="--tc:var(--c-mqp)">
@@ -556,13 +629,13 @@ footer{color:var(--muted);font-size:.82rem;padding:10px 0 40px}
     <p>Нужно для <b>tenho feito</b>, <b>tinha feito</b> и пассива. Правильное причастие: <b>-ar → -ado</b> (falado), <b>-er / -ir → -ido</b> (comido, partido).</p>
     <div class="tbl"><table>
       <thead><tr><th>Инфинитив</th><th>Причастие</th><th>Перевод</th></tr></thead>
-      <tbody id="part-irr"></tbody>
+      <tbody id="part-irr" data-h="1"></tbody>
     </table></div>
     <h3>Двойные причастия (юнит 33)</h3>
     <p class="small muted">Правильная форма на -ado/-ido идёт с <b>ter</b> (tinha aceitado). Неправильная идёт с <b>ser / estar</b> и согласуется в роде и числе (a proposta foi aceite, as luzes estão acesas). У ganhar, gastar, pagar (и часто limpar) с ter обычно берут неправильную форму: <i>já tinha pago, tenho ganho, tinha gasto</i>.</p>
     <div class="tbl"><table>
       <thead><tr><th>Инфинитив</th><th>с ter</th><th>с ser / estar</th><th>Перевод</th></tr></thead>
-      <tbody id="part-dup"></tbody>
+      <tbody id="part-dup" data-h="1"></tbody>
     </table></div>
   </div>
 
@@ -571,14 +644,14 @@ footer{color:var(--muted);font-size:.82rem;padding:10px 0 40px}
     <p class="small muted">Форма для «tu» в утверждении совпадает с «ele» в presente. Остальные формы строятся от «eu» в presente: fa<b>ç</b>o → fa<b>ç</b>a, di<b>g</b>o → di<b>g</b>a, ponho → ponha. В отрицании меняется только «tu».</p>
     <div class="tbl"><table>
       <thead><tr><th>Глагол</th><th>tu</th><th>tu, отрицание</th><th>você</th><th>vocês</th></tr></thead>
-      <tbody id="imper"></tbody>
+      <tbody id="imper" data-h="1"></tbody>
     </table></div>
     <p class="tip">С местоимениями: <i>Senta<b>-te</b>! · Sente<b>-se</b>, por favor! · Calem<b>-se</b>! · Não <b>te</b> esqueças!</i> На письме для -ar глаголов с g/c/ç: pagar → <b>pague</b>, ficar → <b>fique</b>, começar → <b>comece</b>.</p>
   </div>
 
   <div class="card" id="v-nf" style="--tc:var(--c-nf)">
     <h2>Infinitivo pessoal и gerúndio (юниты 28–29)</h2>
-    <div class="vgrid" id="nf"></div>
+    <div class="vgrid" id="nf" data-h="1"></div>
     <p class="tip">У infinitivo pessoal <b>нет неправильных глаголов</b>: sermos, irmos, fazermos, termos, estarem. Герундий тоже всегда правильный: sendo, indo, fazendo, pondo.</p>
   </div>
 
@@ -2006,6 +2079,279 @@ function route(){
 window.addEventListener("hashchange", route);
 route();
 })();
+</script>
+<script>
+/* ================= VERB TRAINER ================= */
+(function(){
+"use strict";
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+
+/* ---------- verbs ---------- */
+// ru: short meaning; c: complement for cloze sentences; no: tenses where cloze is unnatural
+const V = {
+ ser:{ru:"быть",c:"",no:"all"}, estar:{ru:"быть, находиться",c:"em casa"}, ter:{ru:"иметь",c:"muito trabalho"},
+ ir:{ru:"идти, ехать",c:"ao cinema"}, fazer:{ru:"делать",c:"o jantar"}, poder:{ru:"мочь",c:"sair cedo",no:"imper"},
+ dizer:{ru:"говорить, сказать",c:"a verdade"}, dar:{ru:"давать",c:"uma festa"}, ver:{ru:"видеть",c:"o filme"},
+ saber:{ru:"знать, уметь",c:"a resposta",no:"imper"}, querer:{ru:"хотеть",c:"um café",no:"imper"}, vir:{ru:"приходить",c:"de comboio"},
+ "pôr":{ru:"класть, ставить",c:"a mesa"}, ficar:{ru:"оставаться",c:"em casa"}, falar:{ru:"говорить",c:"português"},
+ comer:{ru:"есть",c:"peixe"}, viver:{ru:"жить",c:"no Porto"}, sair:{ru:"выходить",c:"cedo"}, pedir:{ru:"просить",c:"ajuda"},
+ ouvir:{ru:"слышать, слушать",c:"música"}, trabalhar:{ru:"работать",c:"no escritório"}, chegar:{ru:"приходить, приезжать",c:"a horas"},
+ "começar":{ru:"начинать",c:"o trabalho"}, pagar:{ru:"платить",c:"a conta"}, beber:{ru:"пить",c:"água"},
+ escrever:{ru:"писать",c:"um email"}, abrir:{ru:"открывать",c:"a janela"}, partir:{ru:"уезжать",c:"para Faro"},
+ ler:{ru:"читать",c:"o jornal"}, trazer:{ru:"приносить",c:"o pão"}, perder:{ru:"терять",c:"o autocarro"},
+ dormir:{ru:"спать",c:"bem"}, conhecer:{ru:"знать (кого-то)",c:"o Porto"}, preferir:{ru:"предпочитать",c:"chá"},
+ conseguir:{ru:"суметь",c:"dormir"}, vestir:{ru:"надевать",c:"o casaco"}, subir:{ru:"подниматься",c:"as escadas"}
+};
+const SETS = [
+ {id:"top", name:"Топ-20", verbs:["ser","estar","ter","ir","fazer","poder","dizer","dar","ver","saber","querer","vir","pôr","ficar","falar","comer","viver","sair","pedir","ouvir"],
+  hint:"Двадцать самых частых глаголов. С них стоит начать: на них держится почти любая фраза."},
+ {id:"reg", name:"Правильные", verbs:["falar","trabalhar","comer","beber","viver","partir","abrir","escrever"],
+  hint:"Здесь всё строится по образцу falar / comer / partir. Запомни окончания, и любой новый правильный глагол спрягается сам. Ловушки только в причастиях: escrever → escrito, abrir → aberto."},
+ {id:"ppsirr", name:"Неправильные p.p.s.", verbs:["ser","ir","estar","ter","fazer","dizer","trazer","poder","querer","saber","pôr","vir","dar","ver"],
+  hint:"Закономерность: у многих неправильных в p.p.s. «eu» и «ele» отличаются одной буквой. fiz → fez, pus → pôs, tive → teve, estive → esteve, pude → pôde. А disse, quis, soube, trouxe совпадают у «eu» и «ele». ser и ir в p.p.s. одинаковые: fui, foste, foi."},
+ {id:"eu", name:"Меняется «eu»", verbs:["conhecer","preferir","conseguir","vestir","pedir","ouvir","dormir","perder","subir"],
+  hint:"Неправильная только форма «eu» в presente: conheço, prefiro, consigo, visto, peço, ouço, durmo, perco. От неё же строится imperativo для você и vocês: conheça, prefira, consiga, vista, peça, ouça, durma, perca."},
+ {id:"orto", name:"c / g / ç", verbs:["ficar","chegar","começar","pagar"],
+  hint:"Чтобы сохранить звук, перед -e меняется буква: fiquei, cheguei, comecei, paguei. Так же в imperativo: fique, chegue, comece, pague."},
+ {id:"all", name:"Все глаголы", verbs:Object.keys(V), hint:"Все 37 глаголов вперемешку."}
+];
+const TN = [
+ {id:"pres", name:"presente", c:"pres", cloze:"Normalmente {S} ___ {C}."},
+ {id:"pps", name:"p.p.s.", c:"pps", cloze:"Ontem {S} ___ {C}."},
+ {id:"imp", name:"imperfeito", c:"imp", cloze:"Antigamente {S} ___ {C}."},
+ {id:"ppc", name:"p.p.c.", c:"ppc", cloze:"Ultimamente {S} ___ {C}."},
+ {id:"mqp", name:"m.q.p.c.", c:"mqp", cloze:"Às oito, {S} já ___ {C}."},
+ {id:"fut", name:"futuro", c:"fut", cloze:"No próximo ano, {S} ___ {C}."},
+ {id:"cond", name:"condicional", c:"cond", cloze:"Com mais tempo, {S} ___ {C}."},
+ {id:"imper", name:"imperativo", c:"imper", cloze:"{S}, ___ {C}!"},
+ {id:"infp", name:"inf. pessoal", c:"nf", cloze:"É melhor {S} ___ {C}."}
+];
+const P_LBL = ["eu","tu","você / ele / ela","nós","vocês / eles / elas"];
+const P_SUBJ = ["eu","tu","ela","nós","eles"];
+const IMP_LBL = ["tu","tu, отрицание","você","vocês"];
+const IMP_SUBJ = ["Pedro","Pedro","Sr. Matos","Meninos"];
+// cloze unnatural for these verb+tense combos (label task is used instead)
+const NO_CLOZE = {ppc:["poder","saber","querer","conhecer","conseguir","preferir"], mqp:["poder","querer","preferir"], fut:["poder"], infp:["poder","querer","saber"]};
+
+/* ---------- conjugation engine (European Portuguese) ---------- */
+const PRES = {
+ ser:"sou és é somos são", estar:"estou estás está estamos estão", ter:"tenho tens tem temos têm", ir:"vou vais vai vamos vão",
+ fazer:"faço fazes faz fazemos fazem", poder:"posso podes pode podemos podem", dizer:"digo dizes diz dizemos dizem",
+ dar:"dou dás dá damos dão", ver:"vejo vês vê vemos veem", saber:"sei sabes sabe sabemos sabem", querer:"quero queres quer queremos querem",
+ vir:"venho vens vem vimos vêm", "pôr":"ponho pões põe pomos põem", sair:"saio sais sai saímos saem", pedir:"peço pedes pede pedimos pedem",
+ ouvir:"ouço ouves ouve ouvimos ouvem", ler:"leio lês lê lemos leem", trazer:"trago trazes traz trazemos trazem", perder:"perco perdes perde perdemos perdem",
+ dormir:"durmo dormes dorme dormimos dormem", conhecer:"conheço conheces conhece conhecemos conhecem", preferir:"prefiro preferes prefere preferimos preferem",
+ conseguir:"consigo consegues consegue conseguimos conseguem", vestir:"visto vestes veste vestimos vestem", subir:"subo sobes sobe subimos sobem"
+};
+const PPS = {
+ ser:"fui foste foi fomos foram", ir:"fui foste foi fomos foram", estar:"estive estiveste esteve estivemos estiveram", ter:"tive tiveste teve tivemos tiveram",
+ fazer:"fiz fizeste fez fizemos fizeram", poder:"pude pudeste pôde pudemos puderam", dizer:"disse disseste disse dissemos disseram",
+ dar:"dei deste deu demos deram", ver:"vi viste viu vimos viram", saber:"soube soubeste soube soubemos souberam", querer:"quis quiseste quis quisemos quiseram",
+ vir:"vim vieste veio viemos vieram", "pôr":"pus puseste pôs pusemos puseram", trazer:"trouxe trouxeste trouxe trouxemos trouxeram", sair:"saí saíste saiu saímos saíram"
+};
+const IMPF = { ser:"era eras era éramos eram", ter:"tinha tinhas tinha tínhamos tinham", vir:"vinha vinhas vinha vínhamos vinham", "pôr":"punha punhas punha púnhamos punham", sair:"saía saías saía saíamos saíam" };
+const PART = { sair:"saído", fazer:"feito", dizer:"dito", ver:"visto", vir:"vindo", "pôr":"posto", escrever:"escrito", abrir:"aberto", pagar:"pago" };
+const FSTEM = { dizer:"dir", fazer:"far", trazer:"trar", "pôr":"por" };
+const SUBJ = { ser:"sej", estar:"estej", dar:"d", ir:"v", saber:"saib", querer:"queir" }; // special imperative stems
+const sp = s => s.split(" ");
+const cls = v => v.endsWith("ar") ? "ar" : v.endsWith("er")||v==="pôr" ? "er" : "ir";
+function stem(v){ return v==="pôr" ? "p" : v.slice(0,-2); }
+function presente(v){
+  if(PRES[v]) return sp(PRES[v]);
+  const s = stem(v), c = cls(v);
+  return c==="ar" ? [s+"o",s+"as",s+"a",s+"amos",s+"am"] : c==="er" ? [s+"o",s+"es",s+"e",s+"emos",s+"em"] : [s+"o",s+"es",s+"e",s+"imos",s+"em"];
+}
+function pps(v){
+  if(PPS[v]) return sp(PPS[v]);
+  const s = stem(v), c = cls(v);
+  if(c==="ar"){
+    let e1 = s+"ei";
+    if(s.endsWith("c")) e1 = s.slice(0,-1)+"quei"; else if(s.endsWith("g")) e1 = s+"uei"; else if(s.endsWith("ç")) e1 = s.slice(0,-1)+"cei";
+    return [e1,s+"aste",s+"ou",s+"ámos",s+"aram"];
+  }
+  return c==="er" ? [s+"i",s+"este",s+"eu",s+"emos",s+"eram"] : [s+"i",s+"iste",s+"iu",s+"imos",s+"iram"];
+}
+function imperfeito(v){
+  if(IMPF[v]) return sp(IMPF[v]);
+  const s = stem(v);
+  return cls(v)==="ar" ? [s+"ava",s+"avas",s+"ava",s+"ávamos",s+"avam"] : [s+"ia",s+"ias",s+"ia",s+"íamos",s+"iam"];
+}
+function part(v){ return PART[v] || (cls(v)==="ar" ? stem(v)+"ado" : stem(v)+"ido"); }
+function compound(aux, v){ return sp(aux).map(a=>a+" "+part(v)); }
+function futuro(v){ const s = FSTEM[v] || v; return ["ei","ás","á","emos","ão"].map(e=>s+e); }
+function condicional(v){ const s = FSTEM[v] || v; return ["ia","ias","ia","íamos","iam"].map(e=>s+e); }
+function infp(v){ if(v==="sair") return ["sair","saíres","sair","saírmos","saírem"]; const b = v==="pôr" ? "por" : v; return [v, b+"es", v, b+"mos", b+"em"]; }
+function imperativo(v){
+  // returns [tu, não tu, você, vocês]
+  const ele = presente(v)[2];
+  let tu = v==="ser" ? "sê" : ele;
+  let base;
+  if(SUBJ[v]) base = SUBJ[v];
+  else {
+    const eu = presente(v)[0];
+    base = eu.slice(0,-1); // faço → faç, digo → dig
+    if(cls(v)==="ar"){ if(base.endsWith("c")) base = base.slice(0,-1)+"qu"; else if(base.endsWith("g")) base = base+"u"; else if(base.endsWith("ç")) base = base.slice(0,-1)+"c"; }
+  }
+  const vowel = cls(v)==="ar" ? "e" : "a";
+  let voce = base+vowel, voces = base+vowel+"m", neg = "não "+base+vowel+"s";
+  if(v==="dar"){ voce="dê"; voces="deem"; neg="não dês"; }
+  if(v==="ir"){ voce="vá"; voces="vão"; neg="não vás"; }
+  if(v==="estar"){ voce="esteja"; voces="estejam"; neg="não estejas"; }
+  if(v==="ser"){ voce="seja"; voces="sejam"; neg="não sejas"; }
+  if(v==="saber"){ voce="saiba"; voces="saibam"; neg="não saibas"; }
+  if(v==="querer"){ tu=null; voce="queira"; voces="queiram"; neg="não queiras"; }
+  if(v==="poder") return null;
+  return [tu, neg, voce, voces];
+}
+function forms(v, t){
+  switch(t){
+    case "pres": return presente(v);
+    case "pps": return pps(v);
+    case "imp": return imperfeito(v);
+    case "ppc": return compound("tenho tens tem temos têm", v);
+    case "mqp": return compound("tinha tinhas tinha tínhamos tinham", v);
+    case "fut": return futuro(v);
+    case "cond": return condicional(v);
+    case "imper": return imperativo(v);
+    case "infp": return infp(v);
+  }
+}
+window.__conj = forms; // exposed for testing
+
+/* ---------- SRS (Leitner) ---------- */
+const KEY = "ga1-verbs-srs-v1", DAY = 864e5, IV = [0,1,3,7,14,30];
+let S = {};
+try { S = JSON.parse(localStorage.getItem(KEY)||"{}"); } catch(e) { S = {}; }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e) {} };
+
+/* ---------- state ---------- */
+let setId = "top", tenses = new Set(["pres","pps","imp"]), size = 15;
+let queue = [], pos = 0, shown = false, okN = 0, badN = 0;
+const tObj = id => TN.find(t=>t.id===id);
+
+function allItems(){
+  const set = SETS.find(s=>s.id===setId);
+  const out = [];
+  set.verbs.forEach(v=>{
+    tenses.forEach(t=>{
+      const f = forms(v,t); if(!f) return;
+      f.forEach((x,i)=>{ if(x) out.push({v, t, p:i, k:`${v}|${t}|${i}`}); });
+    });
+  });
+  return out;
+}
+function shuffle(a){ for(let k=a.length-1;k>0;k--){ const r=Math.floor(Math.random()*(k+1)); [a[k],a[r]]=[a[r],a[k]]; } return a; }
+function build(){
+  const now = Date.now(), items = allItems();
+  const due = shuffle(items.filter(it=>S[it.k] && S[it.k].due<=now)).sort((a,b)=>S[a.k].box-S[b.k].box);
+  const fresh = shuffle(items.filter(it=>!S[it.k]));
+  const later = shuffle(items.filter(it=>S[it.k] && S[it.k].due>now)).sort((a,b)=>S[a.k].due-S[b.k].due);
+  // interleave: ensure tenses alternate rather than cluster
+  queue = [...due, ...fresh, ...later].slice(0, size);
+  queue = shuffle(queue);
+  pos = 0; shown = false; okN = 0; badN = 0;
+  queue.forEach(it=>{ it.mode = clozeOK(it) && Math.random()<0.5 ? "cloze" : "label"; });
+  draw();
+}
+function clozeOK(it){
+  const vv = V[it.v]; if(vv.no==="all" || vv.no===it.t) return false;
+  if((NO_CLOZE[it.t]||[]).includes(it.v)) return false;
+  return !!vv.c;
+}
+function prompt(it){
+  const T = tObj(it.t);
+  const person = it.t==="imper" ? IMP_LBL[it.p] : P_LBL[it.p];
+  if(it.mode==="cloze"){
+    const subj = it.t==="imper" ? IMP_SUBJ[it.p] : P_SUBJ[it.p];
+    let s = T.cloze.replace("{S}", subj).replace("{C}", V[it.v].c);
+    s = esc(s).replace("___", `<span class="gap">_____</span>`);
+    const extra = it.t==="imper" ? (it.p===1 ? " · запрет (tu)" : it.p===0 ? " · tu" : it.p===2 ? " · você" : " · vocês") : "";
+    return `<span class="tv-chip" style="--tc:var(--c-${T.c})">${T.name}</span><span class="tv-sent">${s}</span><span class="tv-sub">(${esc(it.v)} · ${esc(V[it.v].ru)})${extra}</span>`;
+  }
+  return `<span class="tv-chip" style="--tc:var(--c-${T.c})">${T.name}</span><span class="tv-lab"><b>${esc(person)}</b> · <b>${esc(it.v)}</b></span><span class="tv-sub">${esc(V[it.v].ru)}</span>`;
+}
+function answerOf(it){ return forms(it.v,it.t)[it.p]; }
+function fullRow(it){
+  const f = forms(it.v,it.t), T = tObj(it.t), lbl = it.t==="imper" ? IMP_LBL : P_LBL;
+  return `<table class="tv-row" style="--tc:var(--c-${T.c})"><tbody>${f.map((x,i)=>x?`<tr class="${i===it.p?"hit":""}"><th>${lbl[i]}</th><td>${esc(x)}</td></tr>`:"").join("")}</tbody></table>`;
+}
+function draw(){
+  const total = queue.length;
+  $("#tv-bar").style.width = total ? (Math.min(pos,total)/total*100)+"%" : "0";
+  $("#tv-stat").textContent = total ? `Задание ${Math.min(pos+1,total)} из ${total} · верно ${okN} · ещё раз ${badN}` : "";
+  const st = $("#tv-stage"), btn = $("#tv-btns");
+  if(!tenses.size){ st.innerHTML = `<div class="tv-card empty">Выбери хотя бы одно время.</div>`; btn.hidden = true; return; }
+  if(!total){ st.innerHTML = `<div class="tv-card empty">Нет заданий для этого набора.</div>`; btn.hidden = true; return; }
+  if(pos>=total){
+    st.innerHTML = `<div class="tv-card done"><span class="big">Готово!</span><span>Верно ${okN} · Ещё раз ${badN}</span><button type="button" class="gb know" id="tv-again">Новая тренировка</button></div>`;
+    btn.hidden = true; $("#tv-again").onclick = build; drawMap(); return;
+  }
+  const it = queue[pos];
+  st.innerHTML = `<button type="button" class="tv-card" id="tv-card" aria-expanded="${shown}">${prompt(it)}${shown?`<span class="tv-ans">${esc(answerOf(it))}</span>`:`<span class="fc-hint">Скажи форму вслух и нажми, чтобы проверить</span>`}</button>${shown?fullRow(it):""}`;
+  $("#tv-card").onclick = ()=>{ shown = !shown; draw(); };
+  btn.hidden = !shown;
+}
+function grade(ok){
+  const it = queue[pos], now = Date.now();
+  const r = S[it.k] || {box:0, due:0, n:0, bad:0};
+  r.n++;
+  if(ok){ okN++; r.box = Math.min(r.box+1, IV.length-1); r.due = now + IV[r.box]*DAY; }
+  else { badN++; r.bad++; r.box = 0; r.due = now; const copy = Object.assign({}, it); queue.splice(Math.min(queue.length, pos+3+Math.floor(Math.random()*3)), 0, copy); }
+  S[it.k] = r; save();
+  pos++; shown = false; draw(); drawMap();
+}
+
+/* ---------- heat map ---------- */
+function drawMap(){
+  const set = SETS.find(s=>s.id===setId);
+  const head = `<tr><th></th>${TN.map(t=>`<th title="${t.name}" style="color:var(--c-${t.c})">${t.name.replace("inf. pessoal","inf.p.").replace("condicional","cond.").replace("imperfeito","imperf.").replace("imperativo","imper.").replace("presente","pres.")}</th>`).join("")}</tr>`;
+  const rows = set.verbs.map(v=>`<tr><th>${esc(v)}</th>${TN.map(t=>{
+    const f = forms(v,t.id); if(!f) return `<td class="hm na" title="нет формы">·</td>`;
+    const recs = f.map((x,i)=>x?S[`${v}|${t.id}|${i}`]:null).filter((x,i)=>f[i]);
+    const seen = recs.filter(Boolean);
+    if(!seen.length) return `<td class="hm"></td>`;
+    const avg = seen.reduce((a,r)=>a+r.box,0)/f.filter(Boolean).length;
+    const bad = seen.some(r=>r.box===0 && r.bad>0);
+    const lvl = bad ? "bad" : avg>=3 ? "good" : avg>=1.5 ? "mid" : "low";
+    return `<td class="hm ${lvl}" title="${v} · ${t.name}"></td>`;
+  }).join("")}</tr>`).join("");
+  $("#tv-map").innerHTML = `<table class="hmap"><thead>${head}</thead><tbody>${rows}</tbody></table>`;
+}
+
+/* ---------- controls ---------- */
+function drawControls(){
+  $("#tv-sets").innerHTML = SETS.map(s=>`<button type="button" class="chip" data-s="${s.id}" aria-pressed="${s.id===setId}">${s.name}</button>`).join("");
+  $("#tv-tenses").innerHTML = TN.map(t=>`<button type="button" class="chip tchip" style="--tc:var(--c-${t.c})" data-t="${t.id}" aria-pressed="${tenses.has(t.id)}">${t.name}</button>`).join("");
+  $("#tv-hint").textContent = SETS.find(s=>s.id===setId).hint;
+  $$("#tv-size button").forEach(b=>b.setAttribute("aria-pressed", String(+b.dataset.n===size)));
+  $("#tv-sum").textContent = `${SETS.find(s=>s.id===setId).name} · ${TN.filter(t=>tenses.has(t.id)).map(t=>t.name).join(", ")||"нет времён"} · по ${size}`;
+}
+$("#tv-sets").addEventListener("click", e=>{ const b=e.target.closest(".chip"); if(!b) return; setId=b.dataset.s; drawControls(); build(); drawMap(); });
+$("#tv-tenses").addEventListener("click", e=>{ const b=e.target.closest(".chip"); if(!b) return; const t=b.dataset.t; if(tenses.has(t)) tenses.delete(t); else tenses.add(t); drawControls(); build(); });
+$("#tv-size").addEventListener("click", e=>{ const b=e.target.closest("button"); if(!b) return; size=+b.dataset.n; drawControls(); build(); });
+$("#tv-know").onclick = ()=>grade(true); $("#tv-bad").onclick = ()=>grade(false);
+$("#tv-reset").onclick = ()=>{ $("#tv-reset-confirm").hidden = false; };
+$("#tv-reset-no").onclick = ()=>{ $("#tv-reset-confirm").hidden = true; };
+$("#tv-reset-yes").onclick = ()=>{ S = {}; save(); $("#tv-reset-confirm").hidden = true; build(); drawMap(); };
+document.addEventListener("keydown", e=>{
+  if(!$("#view-verbos").classList.contains("on") || e.target.matches("input,textarea")) return;
+  if(e.key===" "){ e.preventDefault(); shown=!shown; draw(); } else if(shown && e.key==="ArrowRight") grade(true); else if(shown && e.key==="ArrowLeft") grade(false);
+});
+drawControls(); build(); drawMap();
+
+/* ---------- hide mode for reference tables ---------- */
+$("#hide-forms").addEventListener("change", e=>{
+  $("#view-verbos").classList.toggle("hidemode", e.target.checked);
+  $$("[data-h] td.shown").forEach(td=>td.classList.remove("shown"));
+});
+$("#view-verbos").addEventListener("click", e=>{
+  if(!$("#view-verbos").classList.contains("hidemode")) return;
+  const td = e.target.closest("[data-h] td"); if(td) td.classList.toggle("shown");
+});
+})();
+
 </script>
 </body>
 </html>
