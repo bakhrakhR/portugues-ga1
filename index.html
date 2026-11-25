@@ -55,7 +55,7 @@ header.top{background:var(--surface);border-bottom:1px solid var(--line)}
 .hero .sub{color:var(--muted);max-width:62ch}
 nav.tabs{position:sticky;top:0;border-top:3px solid var(--accent);z-index:5;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto}
-nav.tabs a{flex:1 0 auto;text-align:center;padding:12px 8px;font-size:.95rem;color:var(--muted);text-decoration:none;font-weight:600;border-bottom:3px solid transparent;white-space:nowrap}
+nav.tabs a{flex:1 0 auto;text-align:center;padding:12px 3px;font-size:.84rem;color:var(--muted);text-decoration:none;font-weight:600;border-bottom:3px solid transparent;white-space:nowrap}
 nav.tabs a[aria-current="page"]{color:var(--accent);border-color:var(--accent)}
 nav.tabs a:focus-visible, button:focus-visible, input:focus-visible, .chip:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 main{padding:12px 0 40px}
@@ -347,6 +347,31 @@ body:has(#view-palavras.on:not(.listmode)) footer{display:none}
 body:has(#view-palavras.on:not(.listmode)) main{padding-bottom:8px}
 .wlist #vlist{display:grid}
 .wlist .vtools{top:47px}
+
+/* practice answer sheet */
+.ptop{gap:8px}
+.ptop #p-units{flex-wrap:wrap}
+.plist{display:grid;gap:12px}
+.pex{gap:8px}
+.pex-h{display:flex;gap:10px;align-items:baseline}
+.pex-n{font-family:var(--display);font-weight:700;color:var(--accent);font-size:1.1rem;flex:none}
+.pex-t{flex:1;font-weight:500;font-size:.95rem}
+.pex-pg{font-size:.82rem;color:var(--muted);margin-top:-4px}
+.pex-pg b{color:var(--ink)}
+.pex-c{font-size:.8rem;color:var(--muted);flex:none;font-variant-numeric:tabular-nums}
+.prows{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.prows.short{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.prow{display:flex;align-items:center;gap:6px}
+.pnum{width:2.2em;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums;flex:none;font-size:.9rem}
+.pin{flex:1;min-width:0;font:inherit;font-size:16px;padding:8px 10px;border-radius:9px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
+.pin:focus{outline:none;border-color:var(--accent);background:var(--surface)}
+.pex-f{display:flex;gap:8px;flex-wrap:wrap}
+.psend{gap:8px}
+.pbtns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pacc{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;gap:3px;justify-content:center;flex-wrap:nowrap;padding:6px 8px calc(6px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(8px);border-top:1px solid var(--line)}
+.pacc[hidden]{display:none}
+.pacc button{font:inherit;font-size:1.05rem;flex:1 1 0;min-width:0;max-width:44px;height:40px;padding:0;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+#view-pratica{padding-bottom:60px}
 footer{color:var(--muted);font-size:.82rem;padding:10px 0 40px}
 @media (prefers-reduced-motion: no-preference){ .qi{transition:border-color .2s} }
 </style>
@@ -357,6 +382,7 @@ footer{color:var(--muted);font-size:.82rem;padding:10px 0 40px}
     <a href="#tempos" data-view="tempos">Времена</a>
     <a href="#verbos" data-view="verbos">Глаголы</a>
     <a href="#gramatica" data-view="gramatica">Грамматика</a>
+    <a href="#pratica" data-view="pratica">Практика</a>
     <a href="#palavras" data-view="palavras">Слова</a>
   </div>
 </nav>
@@ -853,6 +879,25 @@ footer{color:var(--muted);font-size:.82rem;padding:10px 0 40px}
     </div>
     <div class="drill"><h4>Проверь себя</h4><div class="quiz" data-drill="int"></div></div>
   </div>
+</section>
+<section class="view" id="view-pratica" aria-labelledby="h-prat">
+  <div class="card ptop">
+    <h2 id="h-prat" class="sr">Практика</h2>
+    <p class="small muted">Бланк ответов к упражнениям учебника. Открой упражнение в книге и впиши только недостающие слова, нумерация как в учебнике. Всё сохраняется на этом устройстве. Готовые ответы отправь преподавателю кнопкой внизу.</p>
+    <div class="chips" id="p-units" role="group" aria-label="Юнит"></div>
+    <h3 id="p-title"></h3>
+  </div>
+  <div id="p-list" class="plist"></div>
+  <div class="card psend">
+    <label class="small muted" for="p-name">Подпись (имя), будет вверху ответа</label>
+    <input id="p-name" class="search" type="text" placeholder="Например: Anastasiia" autocomplete="off">
+    <div class="pbtns">
+      <button type="button" class="gb know" id="p-share-unit">Отправить этот юнит</button>
+      <button type="button" class="gb" id="p-share-all">Отправить все юниты</button>
+    </div>
+    <div id="p-out" hidden><textarea rows="8" class="search" aria-label="Текст ответов"></textarea></div>
+  </div>
+  <div class="pacc" id="p-acc" hidden></div>
 </section>
 <section class="view" id="view-palavras" aria-labelledby="h-palavras">
  <div class="wfit">
@@ -2228,7 +2273,7 @@ const ALL = [
 $("#all-table").innerHTML = `<table><thead><tr><th>Время</th><th>falar</th><th>fazer</th><th>ver</th></tr></thead><tbody>${ALL.map(r=>`<tr><th style="color:${C(r[1])};font-weight:700">${r[0]}</th><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td></tr>`).join("")}</tbody></table>`;
 
 /* ---------------- routing ---------------- */
-const VIEWS = ["tempos","verbos","gramatica","palavras"];
+const VIEWS = ["tempos","verbos","gramatica","pratica","palavras"];
 function route(){
   const h = decodeURIComponent(location.hash.slice(1));
   let view = VIEWS.includes(h) ? h : null, target = null;
@@ -2759,6 +2804,148 @@ function drawList(){
 }
 
 drawSettings(); buildSession();
+})();
+
+</script>
+<script>
+/* ================= PRACTICE: answer sheet for textbook exercises ================= */
+const PRACTICE = [
+ {u:33, title:"estar + particípio passado", ex:[
+   {id:"33.1", pg:71, pdf:"72", task:"Complete com estar + particípio passado (resultado da ação).", n:10},
+   {id:"33.2", pg:71, pdf:"72", task:"Faça frases com estar + particípio passado.", n:10},
+   {id:"33.3", pg:71, pdf:"72–73", task:"Transforme as frases destacadas (estar + particípio passado).", n:8}]},
+ {u:34, title:"se apassivante", ex:[
+   {id:"34.1", pg:73, pdf:"74", task:"Faça frases com se apassivante.", n:10},
+   {id:"34.2", pg:73, pdf:"74", task:"Transforme as frases na ativa em frases com se apassivante.", n:6},
+   {id:"34.3", pg:73, pdf:"74", task:"Transforme as frases usando se apassivante.", n:6},
+   {id:"34.4", pg:73, pdf:"74–75", task:"Transforme as frases na passiva em frases com se apassivante.", n:6}]},
+ {u:35, title:"discurso direto e indireto", ex:[
+   {id:"35.1", pg:75, pdf:"76", task:"Conte o que a Paula disse (discurso indireto).", n:12},
+   {id:"35.2", pg:75, pdf:"76–77", task:"Pensei que… / Julguei que… (o contrário).", n:14}]},
+ {u:36, title:"artigos definidos e indefinidos", ex:[
+   {id:"36.1", pg:77, pdf:"78", task:"Complete com os artigos definidos.", n:40, short:true},
+   {id:"36.2", pg:77, pdf:"78", task:"Complete com os artigos indefinidos.", n:12, short:true},
+   {id:"36.3", pg:77, pdf:"78–79", task:"Complete com os artigos definidos ou indefinidos.", n:16, short:true}]},
+ {u:37, title:"isto, isso, aquilo; aqui, aí, ali", ex:[
+   {id:"37.1", pg:79, pdf:"80", task:"Complete com isto / isso / aquilo.", n:12, short:true},
+   {id:"37.2", pg:79, pdf:"80", task:"Complete as respostas com isto / isso / aquilo.", n:12, short:true},
+   {id:"37.3", pg:79, pdf:"80–81", task:"Responda às perguntas com isto / isso / aquilo.", n:10}]},
+ {u:38, title:"este, esse, aquele", ex:[
+   {id:"38.1", pg:81, pdf:"82", task:"Complete com este / esta / estes / estas.", n:12, short:true},
+   {id:"38.2", pg:81, pdf:"82", task:"Complete com esse / essa / esses / essas.", n:12, short:true},
+   {id:"38.3", pg:81, pdf:"82", task:"Complete com aquele / aquela / aqueles / aquelas.", n:12, short:true},
+   {id:"38.4", pg:81, pdf:"82–83", task:"Complete com os demonstrativos variáveis.", n:6},
+   {id:"38.5", pg:81, pdf:"83", task:"Complete com este(s) / esta(s) / esse(s) / essa(s).", n:10}]},
+ {u:39, title:"possessivos", ex:[
+   {id:"39.1", pg:83, pdf:"84", task:"Responda às seguintes perguntas (De quem é…?).", n:12},
+   {id:"39.2", pg:83, pdf:"84", task:"Complete as seguintes frases (dele / dela / deles / delas).", n:6, short:true},
+   {id:"39.3", pg:83, pdf:"84–85", task:"Use os possessivos.", n:18}]},
+ {u:40, title:"interrogativos", ex:[
+   {id:"40.1", pg:85, pdf:"86", task:"Complete com quantos / como / onde / qual / o que / de que cor / quanto tempo / quem / a que horas.", n:10, short:true},
+   {id:"40.2", pg:85, pdf:"86", task:"Faça perguntas para a parte destacada da frase.", n:10},
+   {id:"40.3", pg:85, pdf:"86–87", task:"Complete com onde / preposição + onde, quem / preposição + quem, que / o que, quanto(s).", n:16, short:true}]}
+];
+(function(){
+"use strict";
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+const K = "ga1-sheet-v1", KU = "ga1-sheet-unit", KN = "ga1-sheet-name";
+const load = (k,d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch(e) { return d; } };
+const save = (k,v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e) {} };
+let A = load(K, {});            // "33.1" -> {vals:[...], extra:n}
+const units = PRACTICE.map(u=>u.u);
+let cur = load(KU, units[0]); if(!units.includes(cur)) cur = units[0];
+
+const filled = E => { const a = A[E.id]; return a ? a.vals.filter(v=>v && v.trim()).length : 0; };
+const count = E => E.n + ((A[E.id] && A[E.id].extra) || 0);
+
+function drawUnits(){
+  $("#p-units").innerHTML = PRACTICE.map(U=>{
+    const tot = U.ex.reduce((s,E)=>s+count(E),0), f = U.ex.reduce((s,E)=>s+filled(E),0);
+    return `<button type="button" class="chip" data-u="${U.u}" aria-pressed="${U.u===cur}" title="${esc(U.title)}">${U.u}${f? (f>=tot?" ✓":` · ${Math.round(f/tot*100)}%`):""}</button>`;
+  }).join("");
+}
+function drawUnit(){
+  const U = PRACTICE.find(u=>u.u===cur);
+  $("#p-title").textContent = `Юнит ${U.u} · ${U.title}`;
+  $("#p-list").innerHTML = U.ex.map(E=>{
+    const vals = (A[E.id] && A[E.id].vals) || [];
+    const rows = Array.from({length: count(E)}, (_,i)=>`<li class="prow"><span class="pnum">${i+1}.</span><input type="text" class="pin" data-ex="${esc(E.id)}" data-i="${i}" value="${esc(vals[i]||"")}" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="next" aria-label="${esc(E.id)}, пункт ${i+1}"></li>`).join("");
+    return `<article class="card pex" data-id="${esc(E.id)}">
+      <div class="pex-h"><span class="pex-n">${esc(E.id)}</span><p class="pex-t">${esc(E.task)}</p><span class="pex-c">${filled(E)}/${count(E)}</span></div>
+      ${E.pg?`<p class="pex-pg">📖 учебник стр. <b>${E.pg}</b> · PDF стр. <b>${E.pdf}</b></p>`:""}
+      <ol class="prows ${E.short?"short":""}">${rows}</ol>
+      <div class="pex-f"><button type="button" class="chip p-add">+ строка</button><button type="button" class="chip p-clear">Очистить</button></div>
+    </article>`;
+  }).join("");
+}
+function exportText(units){
+  const name = $("#p-name").value.trim();
+  let out = name ? `${name}\n` : "";
+  units.forEach(u=>{
+    const U = PRACTICE.find(x=>x.u===u);
+    const blocks = U.ex.filter(E=>filled(E)).map(E=>{
+      const vals = A[E.id].vals;
+      const lines = Array.from({length: count(E)}, (_,i)=>`${i+1}. ${(vals[i]||"").trim() || "—"}`);
+      return `${E.id}\n${lines.join("\n")}`;
+    });
+    if(blocks.length) out += `\nGramática Ativa 1 — Unidade ${u}\n\n${blocks.join("\n\n")}\n`;
+  });
+  return out.trim();
+}
+async function shareOrCopy(text, btn){
+  if(!text){ flash(btn, "Пока нечего отправлять"); return; }
+  if(navigator.share){ try { await navigator.share({title:"Gramática Ativa — respostas", text}); return; } catch(e) { if(e && e.name==="AbortError") return; } }
+  try { await navigator.clipboard.writeText(text); flash(btn, "Скопировано ✓"); }
+  catch(e){ $("#p-out").hidden = false; $("#p-out textarea").value = text; $("#p-out textarea").select(); flash(btn, "Выдели и скопируй текст ниже"); }
+}
+function flash(btn, msg){ const t = btn.textContent; btn.textContent = msg; setTimeout(()=>{ btn.textContent = t; }, 1800); }
+
+$("#p-list").addEventListener("input", e=>{
+  const inp = e.target.closest(".pin"); if(!inp) return;
+  const id = inp.dataset.ex; A[id] = A[id] || {vals:[], extra:0}; A[id].vals[+inp.dataset.i] = inp.value; save(K, A);
+  const E = PRACTICE.flatMap(u=>u.ex).find(x=>x.id===id);
+  $(`.pex[data-id="${CSS.escape(id)}"] .pex-c`).textContent = `${filled(E)}/${count(E)}`;
+  drawUnits();
+});
+$("#p-list").addEventListener("keydown", e=>{
+  const inp = e.target.closest(".pin"); if(!inp || e.key!=="Enter") return;
+  e.preventDefault(); const all = $$(".pin", $("#p-list")), i = all.indexOf(inp); if(i < all.length-1) all[i+1].focus();
+});
+$("#p-list").addEventListener("click", e=>{
+  const ex = e.target.closest(".pex"); if(!ex) return; const id = ex.dataset.id;
+  if(e.target.closest(".p-add")){ A[id] = A[id] || {vals:[], extra:0}; A[id].extra = (A[id].extra||0)+1; save(K, A); drawUnit(); drawUnits(); }
+  if(e.target.closest(".p-clear")){
+    const b = e.target.closest(".p-clear");
+    if(b.dataset.armed){ delete A[id]; save(K, A); drawUnit(); drawUnits(); }
+    else { b.dataset.armed = "1"; b.textContent = "Точно очистить?"; setTimeout(()=>{ if(b.isConnected){ delete b.dataset.armed; b.textContent = "Очистить"; } }, 2500); }
+  }
+});
+$("#p-units").addEventListener("click", e=>{
+  const b = e.target.closest(".chip"); if(!b) return;
+  cur = +b.dataset.u; save(KU, cur); drawUnits(); drawUnit(); window.scrollTo({top:0});
+});
+$("#p-share-unit").onclick = e=>shareOrCopy(exportText([cur]), e.currentTarget);
+$("#p-share-all").onclick = e=>shareOrCopy(exportText(units), e.currentTarget);
+$("#p-name").value = load(KN, "");
+$("#p-name").addEventListener("input", e=>save(KN, e.target.value));
+
+/* accent bar: inserts characters without losing focus */
+let lastInp = null;
+document.addEventListener("focusin", e=>{ if(e.target.classList && e.target.classList.contains("pin")){ lastInp = e.target; $("#p-acc").hidden = false; } });
+document.addEventListener("focusout", ()=>{ setTimeout(()=>{ const a = document.activeElement; if(!a || !a.classList || !a.classList.contains("pin")) $("#p-acc").hidden = true; }, 200); });
+$("#p-acc").addEventListener("pointerdown", e=>{ if(e.target.closest("button")) e.preventDefault(); });
+$("#p-acc").addEventListener("mousedown", e=>{ if(e.target.closest("button")) e.preventDefault(); });
+$("#p-acc").addEventListener("click", e=>{
+  const b = e.target.closest("button"); if(!b || !lastInp) return;
+  const ch = b.dataset.c, s = lastInp.selectionStart ?? lastInp.value.length, en = lastInp.selectionEnd ?? s;
+  lastInp.value = lastInp.value.slice(0,s) + ch + lastInp.value.slice(en);
+  lastInp.focus(); lastInp.setSelectionRange(s+ch.length, s+ch.length);
+  lastInp.dispatchEvent(new Event("input", {bubbles:true}));
+});
+$("#p-acc").innerHTML = ["á","à","â","ã","ç","é","ê","í","ó","ô","õ","ú"].map(c=>`<button type="button" data-c="${c}">${c}</button>`).join("");
+drawUnits(); drawUnit();
 })();
 
 </script>
